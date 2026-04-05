@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পাম্প ড্যাশবোর্ড | FDMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⛽ ফুয়েল ডিস্ট্রিবিউশন ম্যানেজমেন্ট সিস্টেম</h1>
+            <p>👨‍💼 পাম্প কর্তৃপক্ষ ড্যাশবোর্ড</p>
+            <div class="nav-buttons">
+                <a href="index.html" class="btn-primary">🏠 হোম</a>
+                <button onclick="logout()" class="btn-danger">🚪 লগআউট</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔍 গাড়ি সার্চ করুন</h2>
+            <div class="form-group">
+                <label>গাড়ির নম্বর লিখুন:</label>
+                <input type="text" id="searchVehicle" placeholder="যেমন: 4455">
+                <button onclick="searchVehicle()" class="btn-primary" style="margin-top: 10px; width: 100%;">🔍 সার্চ করুন</button>
+            </div>
+            <div id="vehicleInfo"></div>
+            <div id="fuelRequestResult"></div>
+        </div>
+
+        <div class="card">
+            <h2>📜 সকল লেনদেনের ইতিহাস</h2>
+            <div id="allTransactions" style="max-height: 400px; overflow-y: auto;"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

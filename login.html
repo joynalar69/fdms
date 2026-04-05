@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পাম্প লগইন | FDMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⛽ ফুয়েল ডিস্ট্রিবিউশন ম্যানেজমেন্ট সিস্টেম</h1>
+            <p>পাম্প কর্তৃপক্ষ লগইন</p>
+            <div class="nav-buttons">
+                <a href="index.html" class="btn-primary">🏠 হোম</a>
+                <a href="register.html" class="btn-info">📝 রেজিস্ট্রেশন</a>
+                <a href="login.html" class="btn-primary">🔐 পাম্প লগইন</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔐 পাম্প কর্তৃপক্ষ লগইন</h2>
+            
+            <div class="form-group">
+                <label>পাম্প কোড</label>
+                <input type="password" id="adminCode" placeholder="পাম্প কোড লিখুন">
+            </div>
+            
+            <button onclick="handleLogin()" class="btn-primary">🔓 লগইন করুন</button>
+            <div id="loginMessage"></div>
+            
+            <div class="alert alert-info" style="margin-top: 20px;">
+                <strong>ℹ️ পাম্প কোড:</strong> <strong style="font-size: 20px;">admin123</strong>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
