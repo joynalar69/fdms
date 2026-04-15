@@ -3,8 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FDMS | ফুয়েল ডিস্ট্রিবিউশন</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FDMS | ফুয়েল ডিস্ট্রিবিউশন ম্যানেজমেন্ট সিস্টেম</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        button, .btn-primary, .btn-info, .btn-danger, .btn-warning {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .dashboard-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .fuel-stock-box {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .fuel-stock-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .fuel-stock-amount {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .transaction-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            transition: all 0.3s;
+        }
+
+        .transaction-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .fuel-limit-table {
+            margin-bottom: 20px;
+        }
+
+        .limit-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .limit-table th, .limit-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .limit-table th {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .limit-table td.highlight {
+            background: #d4edda;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-allowed {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-blocked {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons button, .nav-buttons a {
+                width: 100%;
+            }
+            
+            .limit-table {
+                font-size: 12px;
+            }
+            
+            .limit-table th, .limit-table td {
+                padding: 8px;
+            }
+            
+            .fuel-stock-amount {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -12,13 +289,14 @@
             <h1>⛽ ফুয়েল ডিস্ট্রিবিউশন ম্যানেজমেন্ট সিস্টেম</h1>
             <p>পাম্প কর্তৃপক্ষ দ্বারা পরিচালিত স্মার্ট জ্বালানি বিতরণ</p>
             <div class="nav-buttons">
-                <a href="index.html" class="btn-primary">🏠 হোম</a>
-                <a href="register.html" class="btn-info">📝 রেজিস্ট্রেশন</a>
-                <a href="login.html" class="btn-primary">🔐 পাম্প লগইন</a>
+                <button onclick="showSection('home')" class="btn-primary">🏠 হোম</button>
+                <button onclick="showSection('register')" class="btn-info">📝 রেজিস্ট্রেশন</button>
+                <button onclick="showSection('login')" class="btn-primary">🔐 পাম্প লগইন</button>
             </div>
         </div>
 
-        <div class="card">
+        <!-- হোম সেকশন -->
+        <div id="homeSection" class="card">
             <h2>স্বাগতম 🇧🇩</h2>
             
             <div class="fuel-limit-table">
@@ -47,10 +325,606 @@
             <div class="alert alert-success">
                 <strong>🔑 লগইন তথ্য:</strong><br>
                 পাম্প কর্তৃপক্ষ কোড: <strong>admin123</strong><br>
-                টেস্ট গাড়ি: <strong>4455</strong> (মালিকানা বাইক - ২ লিটার নিয়েছে)
+                টেস্ট গাড়ি: <strong>4455</strong> (মালিকানা বাইক)
             </div>
         </div>
+
+        <!-- রেজিস্ট্রেশন সেকশন -->
+        <div id="registerSection" class="card hidden">
+            <h2>📝 নতুন গাড়ি রেজিস্ট্রেশন</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>পূর্ণ নাম *</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>NID নম্বর *</label>
+                    <input type="text" id="nid" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>গাড়ির নম্বর *</label>
+                    <input type="text" id="vehicleNo" required placeholder="যেমন: 4455 বা ঢাকা-১১-১২৩৪">
+                </div>
+                
+                <div class="form-group">
+                    <label>গাড়ির ধরন *</label>
+                    <select id="vehicleType" required>
+                        <option value="">-- সিলেক্ট করুন --</option>
+                        <option value="bike">🛵 বাইক</option>
+                        <option value="car">🚗 গাড়ি</option>
+                        <option value="truck">🚛 ট্রাক/পিকআপ</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>গাড়ির মালিকানা ধরন *</label>
+                    <select id="ownershipType" required onchange="toggleIdCardUpload()">
+                        <option value="">-- সিলেক্ট করুন --</option>
+                        <option value="private">🏠 মালিকানা গাড়ি</option>
+                        <option value="rental_marketing">🚕 ভাড়া/মার্কেটিং গাড়ি</option>
+                    </select>
+                </div>
+                
+                <div id="idCardSection" class="hidden">
+                    <div class="form-group">
+                        <label>🆔 চাকরি আইডি কার্ড নম্বর *</label>
+                        <input type="text" id="idCardNumber" placeholder="যেমন: RID-123456">
+                    </div>
+                    <div class="form-group">
+                        <label>🏢 কোম্পানির নাম *</label>
+                        <input type="text" id="companyName" placeholder="যেমন: Uber, Pathao, Foodpanda">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>📞 মোবাইল নম্বর *</label>
+                    <input type="tel" id="mobile" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">✅ রেজিস্ট্রেশন করুন</button>
+            </form>
+            <div id="registerMessage"></div>
+        </div>
+
+        <!-- লগইন সেকশন -->
+        <div id="loginSection" class="card hidden">
+            <h2>🔐 পাম্প কর্তৃপক্ষ লগইন</h2>
+            
+            <div class="form-group">
+                <label>পাম্প কোড</label>
+                <input type="password" id="adminCode" placeholder="পাম্প কোড লিখুন">
+            </div>
+            
+            <button onclick="handleLogin()" class="btn-primary">🔓 লগইন করুন</button>
+            <div id="loginMessage"></div>
+            
+            <div class="alert alert-info" style="margin-top: 20px;">
+                <strong>ℹ️ পাম্প কোড:</strong> <strong style="font-size: 20px;">admin123</strong>
+            </div>
+        </div>
+
+        <!-- পাম্প ড্যাশবোর্ড সেকশন -->
+        <div id="dashboardSection" class="card hidden">
+            <h2>👨‍💼 পাম্প কর্তৃপক্ষ ড্যাশবোর্ড</h2>
+            
+            <!-- তেলের স্টক দেখানোর অংশ -->
+            <div class="fuel-stock-box">
+                <h3>⛽ পাম্পে মজুত তেল</h3>
+                <div class="fuel-stock-amount" id="fuelStockAmount">0</div>
+                <p>লিটার</p>
+                <div id="stockWarning"></div>
+            </div>
+            
+            <!-- তেল ইনপুট দেওয়ার অংশ -->
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>➕ পাম্পে তেল যোগ করুন</h3>
+                <div class="form-group">
+                    <label>তেলের পরিমাণ (লিটার):</label>
+                    <input type="number" id="addFuelAmount" placeholder="যেমন: 5000" step="100">
+                    <button onclick="addFuelStock()" class="btn-primary" style="margin-top: 10px; width: 100%;">✅ তেল যোগ করুন</button>
+                </div>
+                <div id="addFuelMessage"></div>
+            </div>
+            
+            <div class="form-group">
+                <label>🔍 গাড়ির নম্বর লিখুন:</label>
+                <input type="text" id="searchVehicle" placeholder="যেমন: 4455">
+                <button onclick="searchVehicle()" class="btn-primary" style="margin-top: 10px; width: 100%;">🔍 সার্চ করুন</button>
+            </div>
+            <div id="vehicleInfo"></div>
+            <div id="fuelRequestResult"></div>
+            
+            <div style="margin-top: 30px;">
+                <h3>📜 সকল লেনদেনের ইতিহাস</h3>
+                <div id="allTransactions" style="max-height: 400px; overflow-y: auto; margin-top: 15px;"></div>
+            </div>
+            
+            <button onclick="logout()" class="btn-danger" style="margin-top: 20px; width: 100%;">🚪 লগআউট</button>
+        </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // ============ ফুয়েল লিমিট কনফিগারেশন ============
+        const FUEL_LIMITS = {
+            private: {
+                bike: 2,
+                car: 8,
+                truck: 20
+            },
+            rental_marketing: {
+                bike: 3,
+                car: 12,
+                truck: 30
+            }
+        };
+
+        const VEHICLE_NAMES = {
+            bike: 'বাইক',
+            car: 'গাড়ি',
+            truck: 'ট্রাক/পিকআপ'
+        };
+
+        // ============ গ্লোবাল ভেরিয়েবল ============
+        let users = [];
+        let transactions = [];
+        let fuelStock = 0;  // পাম্পের মজুত তেল (০ থেকে শুরু)
+
+        // ============ ডাটা লোড ও সেভ ============
+        function loadData() {
+            const storedUsers = localStorage.getItem('fdms_users_final_v7');
+            const storedTransactions = localStorage.getItem('fdms_transactions_final_v7');
+            const storedFuelStock = localStorage.getItem('fdms_fuel_stock_v7');
+            
+            if (storedUsers) {
+                users = JSON.parse(storedUsers);
+            } else {
+                // ডেমো ইউজার 4455 - এখনো তেল নেয়নি (lastFuelTime = null)
+                users = [{
+                    id: 1,
+                    fullName: 'মোঃ রহিম উদ্দিন',
+                    nid: '1234567890',
+                    vehicleNo: '4455',
+                    vehicleType: 'bike',
+                    ownershipType: 'private',
+                    mobile: '01712345678',
+                    idCardNumber: null,
+                    companyName: null,
+                    registrationDate: new Date().toISOString(),
+                    lastFuelTime: null,  // এখনো তেল নেয়নি
+                    lastFuelAmount: 0,
+                    totalFuelTaken: 0,
+                    isVerified: true
+                }];
+                localStorage.setItem('fdms_users_final_v7', JSON.stringify(users));
+            }
+            
+            if (storedTransactions) {
+                transactions = JSON.parse(storedTransactions);
+            } else {
+                transactions = [];  // খালি ট্রানজেকশন
+                localStorage.setItem('fdms_transactions_final_v7', JSON.stringify(transactions));
+            }
+            
+            if (storedFuelStock) {
+                fuelStock = parseFloat(storedFuelStock);
+            } else {
+                fuelStock = 0; // ০ লিটার থেকে শুরু
+                localStorage.setItem('fdms_fuel_stock_v7', fuelStock);
+            }
+        }
+
+        function saveUsers() {
+            localStorage.setItem('fdms_users_final_v7', JSON.stringify(users));
+        }
+
+        function saveTransactions() {
+            localStorage.setItem('fdms_transactions_final_v7', JSON.stringify(transactions));
+        }
+
+        function saveFuelStock() {
+            localStorage.setItem('fdms_fuel_stock_v7', fuelStock);
+        }
+
+        // ============ স্টক আপডেট ও দেখানো ============
+        function updateFuelStockDisplay() {
+            const stockElement = document.getElementById('fuelStockAmount');
+            const warningElement = document.getElementById('stockWarning');
+            
+            if (stockElement) {
+                stockElement.textContent = fuelStock.toLocaleString();
+            }
+            
+            if (warningElement) {
+                if (fuelStock <= 0) {
+                    warningElement.innerHTML = '<div class="alert alert-danger">⚠️ সতর্কতা: পাম্পে তেল নেই! দয়া করে তেল যোগ করুন।</div>';
+                } else if (fuelStock < 500) {
+                    warningElement.innerHTML = '<div class="alert alert-danger">⚠️ সতর্কতা: তেলের মজুত কমছে! দ্রুত তেল যোগ করুন।</div>';
+                } else if (fuelStock < 1000) {
+                    warningElement.innerHTML = '<div class="alert alert-warning">⚠️ সতর্কতা: তেলের মজুত ১০০০ লিটারের নিচে!</div>';
+                } else {
+                    warningElement.innerHTML = '';
+                }
+            }
+        }
+
+        // ============ তেল যোগ করা ============
+        function addFuelStock() {
+            const addAmount = parseFloat(document.getElementById('addFuelAmount').value);
+            const messageDiv = document.getElementById('addFuelMessage');
+            
+            if (isNaN(addAmount) || addAmount <= 0) {
+                messageDiv.innerHTML = '<div class="alert alert-error">❌ সঠিক পরিমাণ লিখুন! (১ লিটারের বেশি)</div>';
+                setTimeout(() => { messageDiv.innerHTML = ''; }, 2000);
+                return;
+            }
+            
+            fuelStock += addAmount;
+            saveFuelStock();
+            updateFuelStockDisplay();
+            
+            // ট্রানজেকশন হিসেবে সেভ করা
+            const transaction = {
+                id: Date.now(),
+                vehicleNo: 'স্টক',
+                ownerName: 'পাম্প এডমিন',
+                amount: addAmount,
+                dateTime: new Date().toISOString(),
+                operator: 'তেল যোগ করা হয়েছে'
+            };
+            transactions.push(transaction);
+            saveTransactions();
+            
+            messageDiv.innerHTML = `<div class="alert alert-success">✅ ${addAmount} লিটার তেল পাম্পে যোগ করা হয়েছে! মোট মজুত: ${fuelStock.toLocaleString()} লিটার</div>`;
+            document.getElementById('addFuelAmount').value = '';
+            
+            setTimeout(() => { messageDiv.innerHTML = ''; }, 3000);
+            loadAllTransactions();
+        }
+
+        // ============ সেকশন শো করা ============
+        function showSection(section) {
+            document.getElementById('homeSection').classList.add('hidden');
+            document.getElementById('registerSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            
+            document.getElementById(section + 'Section').classList.remove('hidden');
+        }
+
+        // ============ রেজিস্ট্রেশন ============
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const nid = document.getElementById('nid').value;
+            const vehicleNo = document.getElementById('vehicleNo').value.toUpperCase();
+            const vehicleType = document.getElementById('vehicleType').value;
+            const ownershipType = document.getElementById('ownershipType').value;
+            const mobile = document.getElementById('mobile').value;
+            
+            let idCardNumber = null;
+            let companyName = null;
+            
+            if (ownershipType === 'rental_marketing') {
+                idCardNumber = document.getElementById('idCardNumber').value;
+                companyName = document.getElementById('companyName').value;
+                
+                if (!idCardNumber) {
+                    document.getElementById('registerMessage').innerHTML = '<div class="alert alert-error">❌ আইডি কার্ড নম্বর প্রয়োজন!</div>';
+                    return;
+                }
+                if (!companyName) {
+                    document.getElementById('registerMessage').innerHTML = '<div class="alert alert-error">❌ কোম্পানির নাম প্রয়োজন!</div>';
+                    return;
+                }
+            }
+            
+            if (users.find(u => u.nid === nid)) {
+                document.getElementById('registerMessage').innerHTML = '<div class="alert alert-error">❌ এই NID দিয়ে আগে রেজিস্ট্রেশন আছে!</div>';
+                return;
+            }
+            
+            if (users.find(u => u.vehicleNo === vehicleNo)) {
+                document.getElementById('registerMessage').innerHTML = '<div class="alert alert-error">❌ এই গাড়ির নম্বর আগে রেজিস্ট্রেশন করা আছে!</div>';
+                return;
+            }
+            
+            const newUser = {
+                id: Date.now(),
+                fullName, nid, vehicleNo, vehicleType, ownershipType, mobile,
+                idCardNumber, companyName,
+                registrationDate: new Date().toISOString(),
+                lastFuelTime: null, lastFuelAmount: 0, totalFuelTaken: 0,
+                isVerified: ownershipType === 'private'
+            };
+            
+            users.push(newUser);
+            saveUsers();
+            
+            document.getElementById('registerForm').reset();
+            document.getElementById('idCardSection').classList.add('hidden');
+            document.getElementById('registerMessage').innerHTML = '<div class="alert alert-success">✅ রেজিস্ট্রেশন সফল! পাম্প এডমিন লগইন করে তেল দিতে পারেন।</div>';
+            
+            setTimeout(() => {
+                document.getElementById('registerMessage').innerHTML = '';
+            }, 3000);
+        });
+
+        // ============ লগইন ============
+        function handleLogin() {
+            const adminCode = document.getElementById('adminCode').value;
+            
+            if (adminCode === 'admin123') {
+                showSection('dashboard');
+                updateFuelStockDisplay();
+                loadAllTransactions();
+                document.getElementById('loginMessage').innerHTML = '';
+            } else {
+                document.getElementById('loginMessage').innerHTML = '<div class="alert alert-error">❌ ভুল পাম্প কোড!</div>';
+            }
+        }
+
+        // ============ সার্চ গাড়ি ============
+        function searchVehicle() {
+            const vehicleNo = document.getElementById('searchVehicle').value.toUpperCase();
+            const user = users.find(u => u.vehicleNo === vehicleNo);
+            const vehicleInfoDiv = document.getElementById('vehicleInfo');
+            
+            if (!user) {
+                vehicleInfoDiv.innerHTML = '<div class="alert alert-error">❌ গাড়ির নম্বর পাওয়া যায়নি! প্রথমে রেজিস্ট্রেশন করুন।</div>';
+                return;
+            }
+            
+            const lastFuel = user.lastFuelTime ? new Date(user.lastFuelTime) : null;
+            const now = new Date();
+            const hoursSinceLastFuel = lastFuel ? (now - lastFuel) / (1000 * 60 * 60) : 24;
+            const canTakeFuel = !lastFuel || hoursSinceLastFuel >= 24;
+            const limit = FUEL_LIMITS[user.ownershipType][user.vehicleType];
+            
+            let statusBadge = '';
+            let statusMessage = '';
+            
+            if (!canTakeFuel && lastFuel) {
+                const nextAvailable = new Date(lastFuel.getTime() + 24 * 60 * 60 * 1000);
+                const remainingHours = Math.floor((nextAvailable - now) / (1000 * 60 * 60));
+                const remainingMinutes = Math.floor(((nextAvailable - now) % (1000 * 60 * 60)) / (1000 * 60));
+                statusBadge = '<span class="status-badge status-blocked">⛔ তেল দেওয়া যাবে না</span>';
+                statusMessage = `<div class="alert alert-warning">
+                    <strong>⚠️ ২৪ ঘণ্টা পূর্ণ হয়নি!</strong><br>
+                    সর্বশেষ তেল নেওয়া: ${lastFuel.toLocaleString()}<br>
+                    পরবর্তী সময়: ${nextAvailable.toLocaleString()}<br>
+                    বাকি সময়: ${remainingHours} ঘন্টা ${remainingMinutes} মিনিট
+                </div>`;
+            } else {
+                statusBadge = '<span class="status-badge status-allowed">✅ তেল দেওয়া যাবে</span>';
+                statusMessage = `<div class="alert alert-success">
+                    <strong>✅ এই গাড়িটি তেল নিতে পারবে!</strong><br>
+                    দৈনিক লিমিট: ${limit} লিটার
+                </div>`;
+            }
+            
+            let verificationStatus = '';
+            if (user.ownershipType === 'rental_marketing' && !user.isVerified) {
+                verificationStatus = `
+                    <div class="alert alert-warning">
+                        ⚠️ এই গাড়িটি এখনও ভেরিফাইড নয়! 
+                        <button onclick="verifyVehicle('${user.vehicleNo}')" class="btn-primary" style="margin-left: 10px;">✅ ভেরিফাই করুন</button>
+                    </div>
+                `;
+            }
+            
+            let ownershipInfo = '';
+            if (user.ownershipType === 'rental_marketing') {
+                const extraLimit = limit - FUEL_LIMITS.private[user.vehicleType];
+                ownershipInfo = `
+                    <br><strong>🚕 ধরন:</strong> ভাড়া/মার্কেটিং 
+                    <span class="status-badge status-allowed">+${extraLimit} লিটার বেশি</span><br>
+                    <strong>🆔 আইডি কার্ড:</strong> ${user.idCardNumber || 'N/A'}<br>
+                    <strong>🏢 কোম্পানি:</strong> ${user.companyName || 'N/A'}
+                `;
+            } else {
+                ownershipInfo = `<br><strong>🏠 ধরন:</strong> মালিকানা গাড়ি`;
+            }
+            
+            let stockWarning = '';
+            if (fuelStock <= 0) {
+                stockWarning = '<div class="alert alert-danger">⚠️ পাম্পে তেল নেই! আগে তেল যোগ করুন।</div>';
+            } else if (fuelStock < limit) {
+                stockWarning = `<div class="alert alert-warning">⚠️ পাম্পে পর্যাপ্ত তেল নেই! মজুত আছে: ${fuelStock} লিটার</div>`;
+            }
+            
+            let html = `
+                <div class="dashboard-info">
+                    <div class="info-box">
+                        <strong>👤 মালিকের নাম:</strong> ${user.fullName}<br>
+                        <strong>🚗 গাড়ির নম্বর:</strong> ${user.vehicleNo}<br>
+                        <strong>🚙 গাড়ির ধরন:</strong> ${VEHICLE_NAMES[user.vehicleType]}${ownershipInfo}<br>
+                        <strong>📞 মোবাইল:</strong> ${user.mobile}<br>
+                        <strong>📊 মোট তেল গ্রহণ:</strong> ${user.totalFuelTaken || 0} লিটার
+                    </div>
+                    <div class="info-box">
+                        <strong>⛽ দৈনিক লিমিট:</strong> ${limit} লিটার/দিন<br>
+                        <strong>📅 শেষ তেল গ্রহণ:</strong> ${lastFuel ? lastFuel.toLocaleString() : 'কখনো নেয়নি'}<br>
+                        <strong>⛽ শেষ পরিমাণ:</strong> ${user.lastFuelAmount || 0} লিটার<br>
+                        <strong>${statusBadge}</strong>
+                    </div>
+                </div>
+                ${verificationStatus}
+                ${statusMessage}
+                ${stockWarning}
+            `;
+            
+            if (canTakeFuel && (user.ownershipType === 'private' || user.isVerified) && fuelStock > 0) {
+                html += `
+                    <div class="form-group" style="margin-top: 20px; border-top: 2px solid #28a745; padding-top: 20px;">
+                        <label style="font-size: 18px; font-weight: bold;">⛽ তেল বিতরণ করুন</label>
+                        <label>পরিমাণ (লিটার):</label>
+                        <input type="number" id="fuelAmount_${user.vehicleNo}" min="1" max="${Math.min(limit, fuelStock)}" step="0.5" value="${Math.min(limit, fuelStock)}">
+                        <button onclick="dispenseFuel('${user.vehicleNo}')" class="btn-primary" style="margin-top: 10px; width: 100%;">✅ তেল বিতরণ করুন</button>
+                    </div>
+                `;
+            } else if (canTakeFuel && (user.ownershipType === 'private' || user.isVerified) && fuelStock <= 0) {
+                html += '<div class="alert alert-danger" style="margin-top: 20px;">⚠️ পাম্পে তেল নেই! প্লিজ আগে তেল যোগ করুন।</div>';
+            } else if (canTakeFuel && user.ownershipType === 'rental_marketing' && !user.isVerified) {
+                html += '<div class="alert alert-warning" style="margin-top: 20px;">⚠️ ভেরিফিকেশন প্রয়োজন! উপরে ভেরিফাই বাটনে ক্লিক করুন।</div>';
+            }
+            
+            vehicleInfoDiv.innerHTML = html;
+        }
+
+        // ============ গাড়ি ভেরিফাই ============
+        function verifyVehicle(vehicleNo) {
+            const userIndex = users.findIndex(u => u.vehicleNo === vehicleNo);
+            if (userIndex !== -1) {
+                users[userIndex].isVerified = true;
+                saveUsers();
+                const resultDiv = document.getElementById('fuelRequestResult');
+                resultDiv.innerHTML = '<div class="alert alert-success">✅ গাড়িটি ভেরিফাইড করা হয়েছে! এখন তেল দিতে পারবেন。</div>';
+                setTimeout(() => {
+                    resultDiv.innerHTML = '';
+                    searchVehicle();
+                }, 1500);
+            }
+        }
+
+        // ============ তেল বিতরণ (স্টক থেকে কমবে) ============
+        function dispenseFuel(vehicleNo) {
+            const fuelInput = document.getElementById(`fuelAmount_${vehicleNo}`);
+            if (!fuelInput) return;
+            
+            const amount = parseFloat(fuelInput.value);
+            const userIndex = users.findIndex(u => u.vehicleNo === vehicleNo);
+            const resultDiv = document.getElementById('fuelRequestResult');
+            
+            if (userIndex === -1) {
+                resultDiv.innerHTML = '<div class="alert alert-error">❌ গাড়ি পাওয়া যায়নি!</div>';
+                return;
+            }
+            
+            const user = users[userIndex];
+            const limit = FUEL_LIMITS[user.ownershipType][user.vehicleType];
+            const lastFuel = user.lastFuelTime ? new Date(user.lastFuelTime) : null;
+            
+            // স্টক চেক
+            if (fuelStock < amount) {
+                resultDiv.innerHTML = `<div class="alert alert-error">❌ পাম্পে পর্যাপ্ত তেল নেই! মজুত আছে: ${fuelStock.toLocaleString()} লিটার</div>`;
+                setTimeout(() => { resultDiv.innerHTML = ''; }, 3000);
+                return;
+            }
+            
+            // ২৪ ঘণ্টা চেক
+            if (lastFuel && (new Date() - lastFuel) < 24 * 60 * 60 * 1000) {
+                const nextAvailable = new Date(lastFuel.getTime() + 24 * 60 * 60 * 1000);
+                resultDiv.innerHTML = `<div class="alert alert-error">❌ ২৪ ঘণ্টার মধ্যে তেল দেওয়া সম্ভব নয়!<br>পরবর্তী সময়: ${nextAvailable.toLocaleString()}</div>`;
+                return;
+            }
+            
+            // লিমিট চেক
+            if (isNaN(amount) || amount < 1 || amount > limit) {
+                resultDiv.innerHTML = `<div class="alert alert-error">❌ ১ থেকে ${limit} লিটার পর্যন্ত দিতে পারবেন!</div>`;
+                return;
+            }
+            
+            // ইউজার আপডেট
+            users[userIndex].lastFuelTime = new Date().toISOString();
+            users[userIndex].lastFuelAmount = amount;
+            users[userIndex].totalFuelTaken = (users[userIndex].totalFuelTaken || 0) + amount;
+            saveUsers();
+            
+            // স্টক থেকে তেল কমানো
+            fuelStock -= amount;
+            saveFuelStock();
+            updateFuelStockDisplay();
+            
+            // ট্রানজেকশন সেভ
+            const transaction = {
+                id: Date.now(),
+                vehicleNo: user.vehicleNo,
+                ownerName: user.fullName,
+                amount: amount,
+                dateTime: new Date().toISOString(),
+                operator: 'পাম্প এডমিন'
+            };
+            transactions.push(transaction);
+            saveTransactions();
+            
+            resultDiv.innerHTML = `<div class="alert alert-success">✅ ${amount} লিটার তেল বিতরণ করা হয়েছে!<br>📅 সময়: ${new Date().toLocaleString()}<br>🚗 গাড়ি: ${user.vehicleNo}<br>⛽ বর্তমান মজুত: ${fuelStock.toLocaleString()} লিটার</div>`;
+            
+            setTimeout(() => {
+                searchVehicle();
+                loadAllTransactions();
+                setTimeout(() => {
+                    resultDiv.innerHTML = '';
+                }, 3000);
+            }, 1000);
+        }
+
+        // ============ সকল লেনদেন দেখানো ============
+        function loadAllTransactions() {
+            const transactionsDiv = document.getElementById('allTransactions');
+            if (!transactionsDiv) return;
+            
+            if (transactions.length === 0) {
+                transactionsDiv.innerHTML = '<div class="alert alert-info">📊 এখনো কোন লেনদেন হয়নি।</div>';
+                return;
+            }
+            
+            let html = '';
+            transactions.slice().reverse().forEach(t => {
+                const date = new Date(t.dateTime);
+                let icon = '✅';
+                if (t.vehicleNo === 'স্টক') {
+                    icon = '➕';
+                }
+                html += `
+                    <div class="transaction-item">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong>${icon} ${t.vehicleNo}</strong> - ${t.ownerName}<br>
+                                <small>📅 ${date.toLocaleDateString('bn-BD')} | ⏰ ${date.toLocaleTimeString('bn-BD')}</small><br>
+                                <small>⛽ ${t.amount} লিটার | 👨‍💼 ${t.operator}</small>
+                            </div>
+                            <div style="font-size: 20px;">${icon}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            transactionsDiv.innerHTML = html;
+        }
+
+        // ============ টগল ফাংশন ============
+        function toggleIdCardUpload() {
+            const ownershipType = document.getElementById('ownershipType').value;
+            const idCardSection = document.getElementById('idCardSection');
+            if (ownershipType === 'rental_marketing') {
+                idCardSection.classList.remove('hidden');
+            } else {
+                idCardSection.classList.add('hidden');
+            }
+        }
+
+        // ============ লগআউট ============
+        function logout() {
+            showSection('home');
+            document.getElementById('searchVehicle').value = '';
+            document.getElementById('vehicleInfo').innerHTML = '';
+            document.getElementById('fuelRequestResult').innerHTML = '';
+        }
+
+        // ============ স্টার্টআপ ============
+        loadData();
+        
+        // গ্লোবাল ফাংশন এক্সপোর্ট
+        window.showSection = showSection;
+        window.handleLogin = handleLogin;
+        window.searchVehicle = searchVehicle;
+        window.verifyVehicle = verifyVehicle;
+        window.dispenseFuel = dispenseFuel;
+        window.logout = logout;
+        window.toggleIdCardUpload = toggleIdCardUpload;
+        window.addFuelStock = addFuelStock;
+    </script>
 </body>
 </html>
